@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../leaflet/dist/leaflet.css">
+<script src="../leaflet/dist/leaflet.js"></script>
+
+<style>
+#map {
+    width: 100%;
+    height: 1000px;
+    box-shadow: 5px 5px 5px #ff0000;
+}
+</style>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js'></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css">
+
+</head>
+
+<body>
+
+<h1>RUTA CASA A SENCICO - GONZALO GERMAIN ZEBALLOS ZEGARRA</h1>
+
+<div id="map"></div>
+
+<script>
+
+// ==================== MAPA ====================
+
+var map = L.map('map');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+L.control.scale().addTo(map);
+
+// ==================== CASA ====================
+
+var marker1 = L.marker(
+    [-18.003065, -70.245996],
+    { draggable: true }
+).addTo(map);
+
+var circle1 = L.circle(
+    [-18.003065, -70.245996],
+    {
+        color: 'green',
+        fillColor: 'rgb(10, 206, 20)',
+        fillOpacity: 0.3,
+        radius: 30
+    }
+).addTo(map);
+
+var polygon1 = L.polygon([
+    [-18.002993, -70.246118],
+    [-18.002947, -70.246046],
+    [-18.003117, -70.245897],
+    [-18.003171, -70.245966]
+]).addTo(map);
+
+marker1.bindPopup("<b>MI CASA</b><br>GONZALO.");
+circle1.bindPopup("Área de Influencia - MI HOGAR.");
+polygon1.bindPopup("PERÍMETRO MI HOGAR.");
+
+// ==================== SENCICO ====================
+
+var marker2 = L.marker(
+    [-17.988736132469544, -70.23813482492601],
+    { draggable: true }
+).addTo(map);
+
+var circle2 = L.circle(
+    [-17.988529, -70.238074],
+    {
+        color: 'green',
+        fillColor: 'rgb(10, 206, 20)',
+        fillOpacity: 0.3,
+        radius: 70
+    }
+).addTo(map);
+
+var polygon2 = L.polygon([
+    [-17.988865, -70.238190],
+    [-17.988537, -70.238440],
+    [-17.988207, -70.237886],
+    [-17.988499, -70.237662]
+]).addTo(map);
+
+marker2.bindPopup("<b>RUTA FINAL</b><br>SENCICO.");
+circle2.bindPopup("Área de Influencia - SENCICO.");
+polygon2.bindPopup("Perímetro SENCICO.");
+
+// ==================== RUTA ====================
+
+var latlngs = [
+
+[-18.0031784219132,-70.2459192022948],
+[-18.0034966053375,-70.2463879755728],
+[-18.0040253902738,-70.2459527545744],
+[-18.0023679177023,-70.2438054086793],
+[-18.0017807784665,-70.2442425469508],
+[-18.0014926783748,-70.2444285224435],
+[-18.0005426741044,-70.2448311497988],
+[-18.0002326907974,-70.2449155098161],
+[-17.9990693368203,-70.2449155098161],
+[-17.9963596769565,-70.2448944198118],
+[-17.9943757273205,-70.244913592543],
+[-17.9938359724554,-70.2449212616355],
+[-17.9933545680742,-70.2448100597945],
+[-17.9929971609414,-70.244595325205],
+[-17.9928786329059,-70.2443288242412],
+[-17.9928932209761,-70.243594508636],
+[-17.9923406969745,-70.2428026748372],
+[-17.9916514071802,-70.2418459555499],
+[-17.9904077611091,-70.2401261615607],
+[-17.9889799279042,-70.2381935502551],
+[-17.9887392192527,-70.2383776084747],
+[-17.9887027482162,-70.2383239248273]
+
+];
+
+var polyline = L.polyline(latlngs, {
+    color: 'red',
+    weight: 5
+}).addTo(map);
+
+// ==================== CENTRAR MAPA (ZOOM MÁS CERCANO) ====================
+
+var grupo = L.featureGroup([
+    marker1,
+    marker2,
+    polyline
+]);
+
+map.fitBounds(grupo.getBounds(), {
+    padding: [120, 120],
+    maxZoom: 18
+});
+
+// ACERCAR UN POCO MÁS (ZOOM +)
+setTimeout(function () {
+    map.setZoom(map.getZoom() + 0.05);
+}, 100);
+
+</script>
+
+</body>
+</html>
